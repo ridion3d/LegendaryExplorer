@@ -2736,11 +2736,11 @@ namespace LegendaryExplorer.Tools.PathfindingEditor
             if (e.IsSelected && ShowArtLayer)
             {
                 StaticCollectionActor sca = null;
-                if (smc.export.ObjectName == "StaticLightCollectionActor")
+                if (smc.export.IsA("StaticLightCollectionActor"))
                 {
                     sca = smc.export.GetBinaryData<StaticLightCollectionActor>();
                 }
-                else if (smc.export.ObjectName == "StaticMeshCollectionActor")
+                else if (smc.export.IsA("StaticMeshCollectionActor"))
                 {
                     sca = smc.export.GetBinaryData<StaticMeshCollectionActor>();
                 }
