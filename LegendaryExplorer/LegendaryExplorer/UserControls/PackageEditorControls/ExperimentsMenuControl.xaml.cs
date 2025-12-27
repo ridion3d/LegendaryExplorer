@@ -1601,6 +1601,11 @@ namespace LegendaryExplorer.UserControls.PackageEditorControls
         {
             PackageEditorExperimentsO.StreamFileExperiment(GetPEWindow());
         }
+
+        private void ExportActorsWithPrefix_Click(object sender, RoutedEventArgs e)
+        {
+            PackageEditorExperimentsO.ExportActorsWithPrefix(GetPEWindow());
+        }
         #endregion
 
         // EXPERIMENTS: CHONKY DB---------------------------------------------------------

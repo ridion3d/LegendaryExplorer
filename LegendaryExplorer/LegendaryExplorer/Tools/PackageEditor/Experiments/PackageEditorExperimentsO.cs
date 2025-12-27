@@ -11,6 +11,7 @@ using LegendaryExplorerCore.Packages.CloningImportingAndRelinking;
 using LegendaryExplorerCore.SharpDX;
 using LegendaryExplorerCore.Unreal;
 using LegendaryExplorerCore.Unreal.BinaryConverters;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -3406,6 +3407,45 @@ namespace LegendaryExplorer.Tools.PackageEditor.Experiments
             StreamFile(pew.Pcc, filename, conditionalFile);
 
             ShowSuccess($"Added loading and streaming for {filename} wherever {conditionalFile} is present");
+        }
+
+        /// <summary>
+        /// Exports all supported level actors from the current package into another package,
+        /// automatically applying a prefix to all newly created actors and registering them
+        /// in the target package's PersistentLevel.
+        /// </summary>
+        /// <param name="pew">Current Package Editor window</param>
+        public static void ExportActorsWithPrefix(PackageEditorWindow pew)
+        {
+            if (pew?.Pcc == null)
+                return;
+
+            MessageBox.Show("You will now be asked to select the target package (.pcc) into which the actors will be exported.\n\n" +
+                "All exported actors will be added to the target package's PersistentLevel and will receive the specified prefix.",
+                "Export Actors with Prefix",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
+
+            // 1) Ask for target file
+            var dlg = new OpenFileDialog
+            {
+                Filter = GameFileFilters.ME3ME2SaveFileFilter,
+                Title = "Select target PCC"
+            };
+
+            if (dlg.ShowDialog() != true)
+                return;
+
+            // 2) Ask for prefix
+            string prefix = PromptDialog.Prompt(
+                null,
+                "Enter prefix for exported actors (without __):",
+                "Export Actors with Prefix");
+
+            if (string.IsNullOrWhiteSpace(prefix))
+                return;
+
         }
 
         // HELPER FUNCTIONS
